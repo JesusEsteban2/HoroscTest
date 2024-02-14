@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HoroscTest</string>
+    <string name="aries">Aries</string>
+    <string name="pisces">Piscis</string>
+    <string name="aquarius">Acuario</string>
+    <string name="capricorn">Capricornio</string>
+    <string name="sagitarius">Sagitario</string>
+    <string name="scorpio">Escorpio</string>
+    <string name="libra">Libra</string>
+    <string name="virgo">Virgo</string>
+    <string name="leo">Leo</string>
+    <string name="cancer">Cancer</string>
+    <string name="gemini">Geminis</string>
+    <string name="taurus">Tauro</string>
+</resources>
