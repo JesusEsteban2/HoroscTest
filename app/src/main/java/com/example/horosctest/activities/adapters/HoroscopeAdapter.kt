@@ -7,9 +7,10 @@ import android.view.ViewManager
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.horosctest.R
+import data.Horoscope
 
 
-class CustomAdapter(private val dataSet: Array<String>) :
+class CustomAdapter(private val List<Horoscope> : List<Horoscope>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     /**
