@@ -8,31 +8,32 @@ import com.example.horosctest.activities.adapters.CustomAdapter
 import data.Horoscope
 
 class MainActivity : AppCompatActivity() {
-    val recViewMain: RecyclerView =findViewById(R.id.recViewMain)
+
+    val horosList = listOf<Horoscope>(
+        Horoscope.aries,
+        Horoscope.pisces,
+        Horoscope.aquarius,
+        Horoscope.capricorn,
+        Horoscope.sagitarius,
+        Horoscope.libra,
+        Horoscope.virgo,
+        Horoscope.leo,
+        Horoscope.cancer,
+        Horoscope.gemini,
+        Horoscope.taurus,
+        Horoscope.scorpio
+    )
+
+    lateinit var recViewMain: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val horosList = listOf<Horoscope>(
-            Horoscope.aries,
-            Horoscope.pisces,
-            Horoscope.aquarius,
-            Horoscope.capricorn,
-            Horoscope.sagitarius,
-            Horoscope.libra,
-            Horoscope.aries,
-            Horoscope.pisces,
-            Horoscope.aquarius,
-            Horoscope.capricorn,
-            Horoscope.sagitarius,
-            Horoscope.libra
-        )
 
-
-        initView(horosList)
+        initView()
     }
-        private fun initView(horosList:List<Horoscope>) {
-
+        private fun initView() {
+            recViewMain = findViewById(R.id.recViewMain)
             recViewMain.adapter = CustomAdapter(horosList)
 
         }
