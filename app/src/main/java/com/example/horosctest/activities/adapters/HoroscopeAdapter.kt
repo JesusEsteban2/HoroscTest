@@ -4,23 +4,19 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.graphics.drawable.toBitmapOrNull
 import androidx.recyclerview.widget.RecyclerView
 import com.example.horosctest.R
-import com.example.horosctest.activities.activities.MainActivity
 import data.Horoscope
 
-
-class CustomAdapter(private var  listHoroscope: List<Horoscope>) :
+// Crea el adapter para la reciclerView (el parámetro es la colección a visualizar en ella).
+class CustomAdapter(private var listHoroscope: List<Horoscope>, val onClickListener: (Int) -> Unit) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     /**
-     * Proporcina una referencia a los tipos de views que puede usar
-     * (custom ViewHolder).
+     * Crea el viewHolder del que hereda el adapter en una inner class.
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var imageView:ImageView
@@ -33,6 +29,9 @@ class CustomAdapter(private var  listHoroscope: List<Horoscope>) :
         }
     }
 
+    /**
+     * Implementa los 3 métodos abstractos del adapter.
+     */
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
@@ -47,12 +46,15 @@ class CustomAdapter(private var  listHoroscope: List<Horoscope>) :
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        //TODO: Falta enlazar con los datos
+
         val context:Context = viewHolder.itemView.context
 
         viewHolder.imageView.setImageBitmap(context.getDrawable(listHoroscope[position].img)
             ?.toBitmap() ?: null )
+
         viewHolder.textView.text = context.getString(listHoroscope[position].name)
+        //viewHolder.render(items[position]
+        viewHolder.itemView.setOnClickListener {onClickListener(position)}
     }
 
     // Return the size of your dataset (invoked by the layout manager)

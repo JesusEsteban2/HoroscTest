@@ -12,5 +12,5 @@ sealed class Horoscope (val img:Int, val name:Int){
     object cancer:Horoscope(com.example.horosctest.R.drawable.cancer,com.example.horosctest.R.string.cancer)
     object gemini:Horoscope(com.example.horosctest.R.mipmap.gemini,com.example.horosctest.R.string.gemini)
     object taurus:Horoscope(com.example.horosctest.R.mipmap.taurus,com.example.horosctest.R.string.taurus)
-    object scorpio:Horoscope(com.example.horosctest.R.mipmap.scorpio,com.example.horosctest.R.string.scorpio)
+    object scorpio:Horoscope(com.example.horosctest.R.drawable.scorpio,com.example.horosctest.R.string.scorpio)
 }
