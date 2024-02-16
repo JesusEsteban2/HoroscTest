@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HoroscTest</string>
+    <string name="HoImage">Imagen de Horoscopo</string>
     <string name="aries">Aries</string>
     <string name="pisces">Piscis</string>
     <string name="aquarius">Acuario</string>

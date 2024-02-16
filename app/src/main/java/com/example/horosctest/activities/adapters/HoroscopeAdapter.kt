@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.horosctest.R
 import data.Horoscope
 
-// Crea el adapter para la reciclerView (el parámetro es la colección a visualizar en ella).
+// Crea el adapter para la reciclerView (el parámetro es la colección a visualizar en ella
+// y la función para manejar los click).
 class CustomAdapter(private var listHoroscope: List<Horoscope>, val onClickListener: (Int) -> Unit) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-    /**
-     * Crea el viewHolder del que hereda el adapter en una inner class.
+    /*
+     * Crea el viewHolder en una inner class, que implementa el adapter.
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var imageView:ImageView
@@ -29,7 +30,7 @@ class CustomAdapter(private var listHoroscope: List<Horoscope>, val onClickListe
         }
     }
 
-    /**
+    /*
      * Implementa los 3 métodos abstractos del adapter.
      */
     // Create new views (invoked by the layout manager)
@@ -50,7 +51,7 @@ class CustomAdapter(private var listHoroscope: List<Horoscope>, val onClickListe
         val context:Context = viewHolder.itemView.context
 
         viewHolder.imageView.setImageBitmap(context.getDrawable(listHoroscope[position].img)
-            ?.toBitmap() ?: null )
+            ?.toBitmap() ?: context.getDrawable(R.drawable.aries)!!.toBitmap() )
 
         viewHolder.textView.text = context.getString(listHoroscope[position].name)
         //viewHolder.render(items[position]

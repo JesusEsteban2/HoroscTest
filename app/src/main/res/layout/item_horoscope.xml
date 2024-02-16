@@ -8,14 +8,15 @@
     <ImageView
         android:id="@+id/horoImage"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="90dp"
+        android:contentDescription="@string/HoImage"
         android:layout_weight="1"/>
     <TextView
         android:id="@+id/horoText"
-        android:layout_width="0dp"
+        android:layout_width="0sp"
         android:layout_height="wrap_content"
         android:layout_weight="4"
         android:layout_gravity="center_vertical"
-        android:textSize="24dp"/>
+        android:textSize="24sp"/>
 
 </LinearLayout>

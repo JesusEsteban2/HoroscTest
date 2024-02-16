@@ -1,5 +1,6 @@
 package com.example.horosctest.activities.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var recViewMain: RecyclerView
 
     // Crear lista de elementos Horoscope
-    val horosList = listOf<Horoscope>(
+    val horosList = listOf(
         Horoscope.aries,
         Horoscope.pisces,
         Horoscope.aquarius,
@@ -35,13 +36,18 @@ class MainActivity : AppCompatActivity() {
 
         //Obtener la reciclerView
         recViewMain = findViewById(R.id.recViewMain)
+
         // Asignar el adapter a la reciclerView
-        recViewMain.adapter = CustomAdapter(horosList,{posi ->
+        recViewMain.adapter = CustomAdapter(horosList) { posi ->
             onClickListener(posi)
-        })
+        }
     }
+
+    //Función OnClick a pasar al adapter.
+    @SuppressLint("SuspiciousIndentation")
     private fun onClickListener (p:Int){
-        val intent:Intent = Intent(this, DetailActivity::class.java)
+        // Intent para cambio de ventana a DetailActivity.
+        val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra("HOROS_NAME",getString(horosList[p].name))
             startActivity(intent)
     }
