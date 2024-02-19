@@ -1,0 +1,27 @@
+    // comprobar conexion
+            val responseCode = connection.responseCode
+            // if (responseCode == HttpURLConnection.HTTP_OK) {
+                // val response = readStream (connection.inputStream)
+                // Log.i("HTTP", "Respuesta: ${response.toString()}")
+
+                // val responseObject: JSONObject = JSONObject(response.toString())
+                //result = responseObject.getJSONObject("data").getString("horoscope_data")
+            } else {
+                Log.i("HTTP", "Error en la solicitud. Código de respuesta: $responseCode")
+            }
+
+            suspend fun readStream(): Result<LoginResponse> {
+
+                    (url.openConnection() as? HttpURLConnection)?.run {
+                        requestMethod = "POST"
+                        setRequestProperty("Content-Type", "application/json; utf-8")
+                        setRequestProperty("Accept", "application/json")
+                        doOutput = true
+                        outputStream.write(jsonBody.toByteArray())
+                        return withContext(Dispatchers.IO) {
+                            // Blocking network request code
+                            Result.Success(responseParser.parse(inputStream))
+                        }
+                    }
+                    return Result.Error(Exception("Cannot open HttpURLConnection"))
+                }
