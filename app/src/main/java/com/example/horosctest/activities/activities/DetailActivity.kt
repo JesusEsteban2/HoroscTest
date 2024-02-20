@@ -29,7 +29,15 @@ class DetailActivity : AppCompatActivity() {
         textTitle = findViewById(R.id.textTit)
         textToday = findViewById(R.id.textToday)
 
+
+
+
+
         textTitle.text = intent.getStringExtra("HOROS_NAME")
+
+        this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        this.supportActionBar?.title = textTitle.text.toString()
+        this.supportActionBar?.subtitle="Today Horoscope"
 
         // Llamada en 2º Plano
         CoroutineScope(Dispatchers.IO).launch {
@@ -45,7 +53,6 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         menuInflater.inflate(R.menu.horoscope_menu,menu)
-
 
         return super.onCreateOptionsMenu(menu)
 
