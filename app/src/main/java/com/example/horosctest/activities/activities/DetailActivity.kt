@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.horosctest.R
+import data.horosList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,26 +31,27 @@ class DetailActivity : AppCompatActivity() {
         textTitle = findViewById(R.id.textTit)
         horoToday = findViewById(R.id.textToday)
 
+        //Recibe el indice de la lista para identificar el signo
+        val ind:Int = intent.getIntExtra("HOROS_IND",0)
 
+        // Establece el signo a mostrar
+        // Todo falta mostrar la imagen
+        textTitle.text = getString(horosList[ind].name)
 
-
-
-        textTitle.text = intent.getStringExtra("HOROS_NAME")
-
-        // activa visualización de la fecha Home.
+        // activa visualización de la flecha Home.
         this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Establece titulo y subtitulo de la vista.
-        this.supportActionBar?.title = textTitle.text.toString()
-        this.supportActionBar?.subtitle="Today Horoscope"
+        this.supportActionBar?.title = getString(horosList[ind].name)
+        this.supportActionBar?.subtitle=getString(horosList[ind].dates)
 
         // Llamada en 2º Plano para el contenido obtenido de internet
         CoroutineScope(Dispatchers.IO).launch {
 
-            val result = horoRepo().creaURL(textTitle.text.toString())
+            val result = horoRepo().creaURL(getString(horosList[ind].name))
             // Modificar UI
             runOnUiThread {
-            horoToday.text = result
+                horoToday.text = result
             }
         }
     }
@@ -113,7 +115,6 @@ class horoRepo() {
     private fun readStream (inputStream: InputStream) : StringBuilder {
         val reader = BufferedReader(InputStreamReader(inputStream))
         val response = StringBuilder()
-        var line: String?
 
         // while (.also { line = it } != null) {
         //    response.append(line)

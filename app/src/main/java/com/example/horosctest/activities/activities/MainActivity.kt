@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private fun onClickListener (p:Int){
         // Intent para cambio de ventana a DetailActivity.
         val intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra("HOROS_NAME",getString(data.horosList[p].name))
+            intent.putExtra("HOROS_IND",p)
             startActivity(intent)
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
