@@ -1,10 +1,11 @@
 package com.example.horosctest.activities.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.horosctest.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,14 +21,14 @@ class DetailActivity : AppCompatActivity() {
 
     // Lateinit
     lateinit var textTitle: TextView
-    lateinit var textToday:TextView
+    lateinit var horoToday:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
         textTitle = findViewById(R.id.textTit)
-        textToday = findViewById(R.id.textToday)
+        horoToday = findViewById(R.id.textToday)
 
 
 
@@ -35,30 +36,47 @@ class DetailActivity : AppCompatActivity() {
 
         textTitle.text = intent.getStringExtra("HOROS_NAME")
 
+        // activa visualización de la fecha Home.
         this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        // Establece titulo y subtitulo de la vista.
         this.supportActionBar?.title = textTitle.text.toString()
         this.supportActionBar?.subtitle="Today Horoscope"
 
-        // Llamada en 2º Plano
+        // Llamada en 2º Plano para el contenido obtenido de internet
         CoroutineScope(Dispatchers.IO).launch {
-            // Llamada en segundo plano
+
             val result = horoRepo().creaURL(textTitle.text.toString())
             // Modificar UI
             runOnUiThread {
-            textToday.text = result
+            horoToday.text = result
             }
         }
     }
-
+    // creación del menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
+        //Incorpora el menu a activity_detail
         menuInflater.inflate(R.menu.horoscope_menu,menu)
 
+        // completa la acción en super
         return super.onCreateOptionsMenu(menu)
 
     }
-}
 
+    // Volver a la pantalla anterior al pulsar la fecha.
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+}
 
 class horoRepo() {
 

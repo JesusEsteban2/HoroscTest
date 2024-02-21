@@ -15,3 +15,30 @@
                 Log.i("HTTP", "Error en la solicitud. Código de respuesta: $responseCode")
             }
 
+    // Boton search
+        // Definido en  override fun onCreateOptionsMenu
+        initSearchView(menu?.findItem(R.id.menu_search))
+
+        // Definido dentro del activity
+        private fun initSearchView(searchItem: MenuItem?) {
+               if (searchItem != null) {
+                   var searchView = searchItem.actionView as SearchView
+
+                   searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                       override fun onQueryTextSubmit(query: String?): Boolean {
+                           return false
+                       }
+
+                       override fun onQueryTextChange(query: String?): Boolean {
+                           if (query.isNullOrEmpty()) {
+                               horoscopeList = HoroscopeProvider().getHoroscopes()
+                           } else {
+                               horoscopeList = HoroscopeProvider().getHoroscopes()
+                                   .filter { getString(it.name).contains(query, true) }
+                           }
+                           horocopeAdapter.updateData(horoscopeList)
+                           return true
+                       }
+                   })
+               }
+        }
