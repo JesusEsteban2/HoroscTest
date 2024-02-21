@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         //Incorpora el menu a activity_detail
-        menuInflater.inflate(R.menu.horoscope_menu,menu)
+        menuInflater.inflate(R.menu.main_menu,menu)
 
         initSearchView(menu?.findItem(R.id.menu_search))
 
