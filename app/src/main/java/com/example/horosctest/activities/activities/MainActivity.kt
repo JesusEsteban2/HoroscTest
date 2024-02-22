@@ -10,13 +10,16 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.horosctest.R
 import com.example.horosctest.activities.adapters.CustomAdapter
-import data.horosList
+import data.Horoscope
+import data.HoroscopeList
 
 class MainActivity : AppCompatActivity() {
     // Elementos LateInit
     lateinit var recViewMain: RecyclerView
+    lateinit var adapter:CustomAdapter
 
 
+    var horosList = HoroscopeList()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +29,11 @@ class MainActivity : AppCompatActivity() {
         //Obtener la reciclerView
         recViewMain = findViewById(R.id.recViewMain)
 
-        // Asignar el adapter a la reciclerView
-        recViewMain.adapter = CustomAdapter(data.horosList) { posi ->
+        adapter = CustomAdapter(horosList.lista) { posi ->
             onClickListener(posi)
         }
+        // Asignar el adapter a la reciclerView
+        recViewMain.adapter = adapter
     }
 
     //Función OnClick a pasar al adapter.
@@ -52,25 +56,28 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun initSearchView(searchItem: MenuItem?) {
-        var horoscopeList = horosList
-        if (searchItem != null) {
-            var searchView = searchItem.actionView as SearchView
+        if (searchItem == null) {
+            return
+        } else {
 
+            var searchView = searchItem.actionView as SearchView
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     return false
                 }
 
                 override fun onQueryTextChange(query: String?): Boolean {
+                    var newList:List<Horoscope>
                     if (query.isNullOrEmpty()) {
-                        horoscopeList = horosList
+                        newList = horosList.lista
                     } else {
-                        horoscopeList = horosList
-                            .filter {getString(it.name).contains(query, true) }
+                        newList = horosList.filterListByName(query, searchView.context)
                     }
+                    adapter.updateList(newList)
                     return true
                 }
             })
         }
+
     }
 }

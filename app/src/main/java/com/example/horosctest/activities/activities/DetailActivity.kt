@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.horosctest.R
-import data.horosList
+import data.HoroscopeList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,38 +23,33 @@ class DetailActivity : AppCompatActivity() {
 
     // Lateinit
     lateinit var textTitle: TextView
+    lateinit var imageTitle:ImageView
     lateinit var horoToday:TextView
+
+    var horosList=HoroscopeList()
+    var ind:Int=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
         textTitle = findViewById(R.id.textTit)
+        imageTitle= findViewById(R.id.hImage)
         horoToday = findViewById(R.id.textToday)
 
         //Recibe el indice de la lista para identificar el signo
-        val ind:Int = intent.getIntExtra("HOROS_IND",0)
+        ind = intent.getIntExtra("HOROS_IND",0)
 
         // Establece el signo a mostrar
         // Todo falta mostrar la imagen
-        textTitle.text = getString(horosList[ind].name)
+
 
         // activa visualización de la flecha Home.
         this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Establece titulo y subtitulo de la vista.
-        this.supportActionBar?.title = getString(horosList[ind].name)
-        this.supportActionBar?.subtitle=getString(horosList[ind].dates)
+        // Mostrar el signo del indice pasado
+        showSign(ind)
 
-        // Llamada en 2º Plano para el contenido obtenido de internet
-        CoroutineScope(Dispatchers.IO).launch {
-
-            val result = horoRepo().creaURL(getString(horosList[ind].name))
-            // Modificar UI
-            runOnUiThread {
-                horoToday.text = result
-            }
-        }
     }
     // creación del menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -73,12 +69,50 @@ class DetailActivity : AppCompatActivity() {
                 finish()
                 return true
             }
+            R.id.backItem -> {
+                if (ind>0) {
+                    ind=ind-1
+                    showSign(ind)
+                    return true
+                }
+            }
+            R.id.nextItem -> {
+                if (ind<horosList.lista.size-1) {
+                    ind++
+                    showSign(ind)
+                    return true
+                }
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
+    /**
+     * Función para visualizar el horoscopo seleccionado.
+     *
+     * @param ind: indice del elemento seleccionado
+     * @param c: Contexto de uso.
+     */
+    fun showSign(ind:Int) {
 
+        // Establece titulo y subtitulo de la vista.
+        this.supportActionBar?.title = getString(horosList.lista[ind].name)
+        this.supportActionBar?.subtitle = getString(horosList.lista[ind].dates)
+        imageTitle.
+        textTitle.text = getString(horosList.lista[ind].name)
+        imageTitle
+        // Llamada en 2º Plano para el contenido obtenido de internet
+        CoroutineScope(Dispatchers.IO).launch {
+
+            val result = horoRepo().creaURL(getString(horosList.lista[ind].name))
+            // Modificar UI
+            runOnUiThread {
+                horoToday.text = result
+            }
+        }
+    }
 }
+
 
 class horoRepo() {
 

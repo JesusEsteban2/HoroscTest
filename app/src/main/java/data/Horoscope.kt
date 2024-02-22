@@ -1,5 +1,6 @@
 package data
 
+import android.content.Context
 import com.example.horosctest.R
 
 sealed class Horoscope (val img:Int, val name:Int, val dates:Int){
@@ -17,18 +18,32 @@ sealed class Horoscope (val img:Int, val name:Int, val dates:Int){
     object scorpio:Horoscope(R.drawable.scorpio, R.string.scorpio,R.string.datesScorpio)
 }
 
-// Crear lista de elementos Horoscope
-val horosList = listOf(
-    Horoscope.aries,
-    Horoscope.pisces,
-    Horoscope.aquarius,
-    Horoscope.capricorn,
-    Horoscope.sagitarius,
-    Horoscope.libra,
-    Horoscope.virgo,
-    Horoscope.leo,
-    Horoscope.cancer,
-    Horoscope.gemini,
-    Horoscope.taurus,
-    Horoscope.scorpio
-)
+class HoroscopeList () {
+    lateinit var lista :List<Horoscope>
+
+    init {
+        listInit()
+    }
+
+    fun listInit ():List<Horoscope>{
+        lista = listOf(
+            Horoscope.aries,
+            Horoscope.pisces,
+            Horoscope.aquarius,
+            Horoscope.capricorn,
+            Horoscope.sagitarius,
+            Horoscope.libra,
+            Horoscope.virgo,
+            Horoscope.leo,
+            Horoscope.cancer,
+            Horoscope.gemini,
+            Horoscope.taurus,
+            Horoscope.scorpio
+        )
+        return lista
+    }
+
+    fun filterListByName(s:String,c:Context):List<Horoscope>{
+        return lista.filter {c.getString(it.name).contains(s, true) }
+    }
+}

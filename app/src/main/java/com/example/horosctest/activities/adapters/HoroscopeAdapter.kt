@@ -30,6 +30,11 @@ class CustomAdapter(private var listHoroscope: List<Horoscope>, val onClickListe
         }
     }
 
+    fun updateList(list: List<Horoscope>) {
+        listHoroscope = list
+        notifyDataSetChanged()
+    }
+
     /*
      * Implementa los 3 métodos abstractos del adapter.
      */
