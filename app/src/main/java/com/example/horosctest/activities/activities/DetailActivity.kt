@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import com.example.horosctest.R
 import data.HoroscopeList
 import kotlinx.coroutines.CoroutineScope
@@ -98,7 +99,10 @@ class DetailActivity : AppCompatActivity() {
         // Establece titulo y subtitulo de la vista.
         this.supportActionBar?.title = getString(horosList.lista[ind].name)
         this.supportActionBar?.subtitle = getString(horosList.lista[ind].dates)
-        imageTitle.
+
+        imageTitle.setImageBitmap(getDrawable(horosList.lista[ind].img)
+            ?.toBitmap() ?: getDrawable(R.drawable.aries)!!.toBitmap() )
+
         textTitle.text = getString(horosList.lista[ind].name)
         imageTitle
         // Llamada en 2º Plano para el contenido obtenido de internet
