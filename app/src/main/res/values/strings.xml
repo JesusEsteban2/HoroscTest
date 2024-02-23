@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">HoroscTest</string>
     <string name="HoImage">Horoscope Image</string>
+    <string name="favImage">Favorite</string>
     <string name="menu_search">Find</string>
     <string name="aries">Aries</string>
     <string name="pisces">Pisces</string>

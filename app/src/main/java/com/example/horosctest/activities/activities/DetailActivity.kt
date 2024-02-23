@@ -26,6 +26,7 @@ class DetailActivity : AppCompatActivity() {
     lateinit var textTitle: TextView
     lateinit var imageTitle:ImageView
     lateinit var horoToday:TextView
+    lateinit var favImage:ImageView
 
     var horosList=HoroscopeList()
     var ind:Int=0
@@ -37,6 +38,7 @@ class DetailActivity : AppCompatActivity() {
         textTitle = findViewById(R.id.textTit)
         imageTitle= findViewById(R.id.hImage)
         horoToday = findViewById(R.id.textToday)
+        favImage= findViewById(R.id.favImage)
 
         //Recibe el indice de la lista para identificar el signo
         ind = intent.getIntExtra("HOROS_IND",0)
@@ -45,11 +47,18 @@ class DetailActivity : AppCompatActivity() {
         // Todo falta mostrar la imagen
 
 
-        // activa visualización de la flecha Home.
+        // activa visualización de la flecha Home en el menú.
         this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Mostrar el signo del indice pasado
         showSign(ind)
+
+        favImage.setOnClickListener {
+            if (horosList.fav!=ind) {
+                horosList.fav = ind
+                showSign(ind)
+            }
+        }
 
     }
     // creación del menu
@@ -102,6 +111,11 @@ class DetailActivity : AppCompatActivity() {
 
         imageTitle.setImageBitmap(getDrawable(horosList.lista[ind].img)
             ?.toBitmap() ?: getDrawable(R.drawable.aries)!!.toBitmap() )
+        if (horosList.fav==ind) {
+            favImage.setImageDrawable(getDrawable(R.drawable.heart_favorite))
+        }else {
+            favImage.setImageDrawable(getDrawable(R.drawable.heart_svg))
+        }
 
         textTitle.text = getString(horosList.lista[ind].name)
         imageTitle

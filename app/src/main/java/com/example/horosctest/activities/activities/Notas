@@ -42,3 +42,31 @@
                    })
                }
         }
+
+        // Dialogo emergente
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder
+            .setMessage("I am the message")
+            .setTitle("I am the title")
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+
+        // Dialogo con botones.
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder
+            .setMessage("I am the message")
+            .setTitle("I am the title")
+            .setPositiveButton("Positive") { dialog, which ->
+                // Do something.
+            }
+            .setNegativeButton("Negative") { dialog, which ->
+                // Do something else.
+            }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+
+
+        !-- android:background="@drawable/selector_heart" -->

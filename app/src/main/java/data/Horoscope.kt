@@ -20,9 +20,11 @@ sealed class Horoscope (val img:Int, val name:Int, val dates:Int){
 
 class HoroscopeList () {
     lateinit var lista :List<Horoscope>
+    var fav:Int
 
     init {
         listInit()
+        fav=-1
     }
 
     fun listInit ():List<Horoscope>{
