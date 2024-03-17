@@ -18,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var recViewMain: RecyclerView
     lateinit var adapter:CustomAdapter
 
-
     var horosList = HoroscopeList()
 
 
@@ -79,5 +78,9 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
+    }
+
+    companion object{
+        val horoList:HoroscopeList = HoroscopeList()
     }
 }

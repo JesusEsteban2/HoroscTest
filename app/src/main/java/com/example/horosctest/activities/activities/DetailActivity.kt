@@ -28,7 +28,7 @@ class DetailActivity : AppCompatActivity() {
     lateinit var horoToday:TextView
     lateinit var favImage:ImageView
 
-    var horosList=HoroscopeList()
+    var horosList=MainActivity.horoList
     var ind:Int=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
